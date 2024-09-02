@@ -28,7 +28,7 @@ class __ThemeColorScreenState extends ConsumerState<_ThemeColorScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Color> colors = ref.watch(colorListProvider);
-    final selectedColor = ref.watch(selectedColorProvider);
+    final selectedColor = ref.watch(themeNotifierProvider).selectedColor;
 
     return ListView.builder(
         itemCount: colors.length,
@@ -45,7 +45,9 @@ class __ThemeColorScreenState extends ConsumerState<_ThemeColorScreen> {
               groupValue: selectedColor,
               onChanged: (value) => setState(() {
                     if (value != null) {
-                      ref.read(selectedColorProvider.notifier).state = index;
+                      ref
+                          .read(themeNotifierProvider.notifier)
+                          .changeColorIndex(index);
                     }
                   }));
         });
